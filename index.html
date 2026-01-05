@@ -4,304 +4,42 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard Glume - Async/Await</title>
-    <style>
-        :root {
-            --primary-color: #4f46e5;
-            --bg-color: #f3f4f6;
-            --card-bg: #ffffff;
-            --text-color: #1f2937;
-            --error-color: #dc2626;
-            --sidebar-width: 250px;
-        }
-
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-
-        body {
-            background-color: var(--bg-color);
-            display: flex;
-            height: 100vh;
-            color: var(--text-color);
-        }
-
-        /* Sidebar Styling */
-        .sidebar {
-            width: var(--sidebar-width);
-            background-color: #1e1b4b;
-            color: white;
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .logo {
-            font-size: 1.5rem;
-            font-weight: bold;
-            margin-bottom: 40px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .menu-item {
-            padding: 12px;
-            margin-bottom: 5px;
-            border-radius: 8px;
-            cursor: pointer;
-            opacity: 0.7;
-            transition: 0.3s;
-        }
-
-        .menu-item:hover,
-        .menu-item.active {
-            background-color: rgba(255, 255, 255, 0.1);
-            opacity: 1;
-        }
-
-        /* Main Content */
-        .main-content {
-            flex: 1;
-            padding: 30px;
-            overflow-y: auto;
-        }
-
-        header {
-            margin-bottom: 30px;
-        }
-
-        h1 {
-            font-size: 1.8rem;
-        }
-
-        /* Dashboard Widgets Grid */
-        .dashboard-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 20px;
-        }
-
-        /* Card Styling */
-        .card {
-            background: var(--card-bg);
-            border-radius: 12px;
-            padding: 25px;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-            position: relative;
-        }
-
-        .joke-container {
-            min-height: 150px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-        }
-
-        .setup {
-            font-size: 1.2rem;
-            font-weight: 600;
-            margin-bottom: 15px;
-            color: var(--text-color);
-        }
-
-        .punchline {
-            font-size: 1.1rem;
-            color: var(--primary-color);
-            font-style: italic;
-            opacity: 0;
-            /* Ascuns inițial pentru efect */
-            transform: translateY(10px);
-            transition: all 0.5s ease;
-        }
-
-        .punchline.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        /* Buttons & Tags */
-        .badge {
-            display: inline-block;
-            padding: 4px 10px;
-            background-color: #e0e7ff;
-            color: var(--primary-color);
-            border-radius: 15px;
-            font-size: 0.8rem;
-            margin-bottom: 15px;
-            font-weight: bold;
-            text-transform: uppercase;
-        }
-
-        .btn {
-            background-color: var(--primary-color);
-            color: white;
-            border: none;
-            padding: 12px 24px;
-            border-radius: 8px;
-            font-size: 1rem;
-            cursor: pointer;
-            transition: background 0.3s;
-            margin-top: 20px;
-            width: 100%;
-        }
-
-        .btn:hover {
-            background-color: #4338ca;
-        }
-
-        .btn:disabled {
-            background-color: #9ca3af;
-            cursor: not-allowed;
-        }
-
-        /* Error Box */
-        .error-box {
-            display: none;
-            margin-top: 15px;
-            padding: 15px;
-            background-color: #fee2e2;
-            border: 1px solid #fca5a5;
-            color: var(--error-color);
-            border-radius: 8px;
-            font-size: 0.9rem;
-        }
-
-        .loading-spinner {
-            display: none;
-            text-align: center;
-            color: #6b7280;
-        }
-    </style>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <title>Generator de Glume 😂</title>
 </head>
 
 <body>
-
-    <div class="sidebar">
-        <div class="logo">🤡 JokeDash</div>
-        <div class="menu-item active">Dashboard</div>
-        <div class="menu-item">Statistici</div>
-        <div class="menu-item">Setări</div>
+    <!-- Animated background particles -->
+    <div class="particles">
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
     </div>
 
-    <div class="main-content">
-        <header>
-            <h1>Gluma Zilei</h1>
-            <p style="color: #6b7280;">Dashboard actualizat în timp real</p>
-        </header>
+    <div class="card">
+        <div class="emoji-bounce">😂</div>
+        <h1>Generator de Glume</h1>
 
-        <div class="dashboard-grid">
-            <div class="card">
-                <span class="badge" id="joke-type">General</span>
+        <div class="joke-box">
+            <p id="setup" class="setup-text">Apasă butonul pentru o glumă!</p>
+            <p id="punchline" class="punchline-text"></p>
+        </div>
 
-                <div class="loading-spinner" id="loader">Se încarcă datele...</div>
+        <button id="new-joke-btn" class="glow-btn">
+            <span>🎲 Generează glumă</span>
+        </button>
 
-                <div class="joke-container" id="joke-content">
-                    <p class="setup" id="setup-text">Apasă butonul pentru o glumă...</p>
-                    <p class="punchline" id="punchline-text"></p>
-                </div>
-
-                <div class="error-box" id="error-display"></div>
-
-                <button class="btn" id="fetch-btn" onclick="getNewJoke()">Generează Glumă Nouă</button>
-            </div>
-
-            <div class="card">
-                <h3>Statistici API</h3>
-                <p style="margin-top:15px; color:#6b7280;">Sursă: official-joke-api</p>
-                <p style="margin-top:10px;">Status: <span style="color:green; font-weight:bold;">Activ</span></p>
-                <p style="margin-top:10px;">Cereri realizate: <span id="req-count">0</span></p>
-            </div>
+        <div id="loading" class="loading hidden">
+            <div class="spinner"></div>
         </div>
     </div>
 
-    <script>
-        // Selectare elemente DOM
-        const setupText = document.getElementById('setup-text');
-        const punchlineText = document.getElementById('punchline-text');
-        const typeBadge = document.getElementById('joke-type');
-        const errorDisplay = document.getElementById('error-display');
-        const loader = document.getElementById('loader');
-        const jokeContent = document.getElementById('joke-content');
-        const fetchBtn = document.getElementById('fetch-btn');
-        const reqCountSpan = document.getElementById('req-count');
-
-        let requestCounter = 0;
-        const API_URL = 'https://official-joke-api.appspot.com/random_joke';
-
-        // Funcția principală Async
-        async function getNewJoke() {
-            // 1. Resetare UI înainte de cerere
-            errorDisplay.style.display = 'none';
-            punchlineText.classList.remove('visible');
-            loader.style.display = 'block';
-            jokeContent.style.opacity = '0.5';
-            fetchBtn.disabled = true;
-
-            console.log('--- START PROCES ---');
-            console.log('1. Inițializare cerere către:', API_URL);
-
-            try {
-                // 2. Trimiterea cererii (AWAIT)
-                const response = await fetch(API_URL);
-
-                console.log('2. Răspuns primit. Status:', response.status);
-
-                // Verificare dacă răspunsul este OK (status 200-299)
-                if (!response.ok) {
-                    throw new Error(`Eroare HTTP! Status: ${response.status}`);
-                }
-
-                // 3. Extragere JSON (AWAIT)
-                const data = await response.json();
-                console.log('3. Date JSON parsate:', data);
-
-                // 4. Actualizare Interfață
-                updateUI(data);
-
-            } catch (error) {
-                // Tratarea erorilor
-                console.error('!!! EROARE PRINSĂ:', error);
-                showErrorInUI(error.message);
-            } finally {
-                // Se execută indiferent de succes sau eșec
-                loader.style.display = 'none';
-                jokeContent.style.opacity = '1';
-                fetchBtn.disabled = false;
-                console.log('--- FINAL PROCES ---\n');
-            }
-        }
-
-        function updateUI(jokeData) {
-            // Setăm textele
-            setupText.textContent = jokeData.setup;
-            punchlineText.textContent = jokeData.punchline;
-            typeBadge.textContent = jokeData.type;
-
-            // Incrementăm contorul de cereri
-            requestCounter++;
-            reqCountSpan.textContent = requestCounter;
-
-            // Animație simplă pentru punchline
-            setTimeout(() => {
-                punchlineText.classList.add('visible');
-            }, 500); // Apare după 0.5 secunde
-        }
-
-        function showErrorInUI(message) {
-            errorDisplay.textContent = `A apărut o problemă: ${message}`;
-            errorDisplay.style.display = 'block';
-            setupText.textContent = "Nu am putut încărca gluma.";
-            punchlineText.textContent = "";
-        }
-
-        // Încărcare inițială la deschiderea paginii
-        window.onload = getNewJoke;
-
-    </script>
+    <script src="script.js"></script>
 </body>
 
 </html>
